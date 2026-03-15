@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>French Practice Test — Year 7</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 860px;
+            margin: 0 auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #0055A4 0%, #EF4135 100%);
+            min-height: 100vh;
+        }
+        .container {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        h1 {
+            text-align: center;
+            color: #0055A4;
+            margin-bottom: 5px;
+        }
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+        }
+        .section {
+            margin: 30px 0;
+            padding: 20px;
+            background: #f8f9ff;
+            border-radius: 12px;
+            border-left: 5px solid #0055A4;
+        }
+        .section.grammar {
+            border-left-color: #EF4135;
+        }
+        .section h2 {
+            color: #0055A4;
+            margin-top: 0;
+            font-size: 18px;
+        }
+        .section.grammar h2 {
+            color: #EF4135;
+        }
+        .section-desc {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 15px;
+            font-style: italic;
+        }
+        .question {
+            margin: 15px 0;
+            padding: 12px 15px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.07);
+        }
+        .question-text {
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 15px;
+        }
+        .options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .option {
+            padding: 8px 18px;
+            border: 2px solid #ddd;
+            border-radius: 20px;
+            cursor: pointer;
+            background: white;
+            font-size: 14px;
+            transition: all 0.2s;
+            user-select: none;
+        }
+        .option:hover {
+            border-color: #0055A4;
+            background: #f0f4ff;
+        }
+        .option.selected {
+            border-color: #0055A4;
+            background: #e8eeff;
+            color: #0055A4;
+            font-weight: bold;
+        }
+        .option.correct {
+            border-color: #27ae60;
+            background: #eafaf1;
+            color: #27ae60;
+            font-weight: bold;
+        }
+        .option.wrong {
+            border-color: #e74c3c;
+            background: #fdedec;
+            color: #e74c3c;
+        }
+        .fill-input {
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            padding: 8px 14px;
+            font-size: 15px;
+            width: 200px;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        .fill-input:focus {
+            border-color: #0055A4;
+        }
+        .fill-input.correct {
+            border-color: #27ae60;
+            background: #eafaf1;
+            color: #27ae60;
+        }
+        .fill-input.wrong {
+            border-color: #e74c3c;
+            background: #fdedec;
+        }
+        .feedback {
+            font-size: 13px;
+            margin-top: 6px;
+            font-style: italic;
+        }
+        .feedback.correct { color: #27ae60; }
+        .feedback.wrong { color: #e74c3c; }
+        .submit-btn {
+            display: block;
+            margin: 30px auto 0;
+            padding: 15px 50px;
+            font-size: 18px;
+            font-weight: bold;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            background: linear-gradient(135deg, #0055A4, #003d7a);
+            color: white;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0,85,164,0.4);
+        }
+        .results {
+            display: none;
+            margin-top: 30px;
+            padding: 25px;
+            border-radius: 12px;
+            text-align: center;
+        }
+        .results.show { display: block; }
+        .score-circle {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            font-weight: bold;
+            color: white;
+        }
+        .score-text {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .score-message {
+            font-size: 16px;
+            color: #555;
+            margin-bottom: 20px;
+        }
+        .reset-btn {
+            padding: 12px 35px;
+            font-size: 16px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            background: #EF4135;
+            color: white;
+            font-weight: bold;
+            transition: transform 0.2s;
+            margin: 5px;
+        }
+        .reset-btn:hover { transform: translateY(-2px); }
+        .back-link {
+            text-align: center;
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 2px solid #eee;
+        }
+        .back-link a {
+            display: inline-block;
+            padding: 10px 24px;
+            background: linear-gradient(135deg, #0055A4, #003d7a);
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            font-size: 14px;
+            margin: 4px;
+            transition: transform 0.2s;
+        }
+        .back-link a:hover { transform: translateY(-2px); }
+        .conjugation-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        .conjugation-table td {
+            padding: 8px 12px;
+            border: 1px solid #eee;
+            font-size: 15px;
+        }
+        .conjugation-table td:first-child {
+            font-weight: bold;
+            color: #0055A4;
+            width: 120px;
+            background: #f0f4ff;
+        }
+        .conjugation-table input {
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            padding: 5px 10px;
+            font-size: 14px;
+            width: 160px;
+            outline: none;
+        }
+        .conjugation-table input:focus { border-color: #0055A4; }
+        .conjugation-table input.correct { border-color: #27ae60; background: #eafaf1; color: #27ae60; }
+        .conjugation-table input.wrong { border-color: #e74c3c; background: #fdedec; }
+        .sentence-blank {
+            display: inline-block;
+            border-bottom: 2px solid #0055A4;
+            min-width: 120px;
+            padding: 2px 6px;
+            font-size: 15px;
+            outline: none;
+            background: transparent;
+            border-top: none;
+            border-left: none;
+            border-right: none;
+        }
+        .sentence-blank:focus { border-bottom-color: #EF4135; }
+        .sentence-blank.correct { border-bottom-color: #27ae60; color: #27ae60; font-weight: bold; }
+        .sentence-blank.wrong { border-bottom-color: #e74c3c; color: #e74c3c; }
+        .question-number {
+            display: inline-block;
+            background: #0055A4;
+            color: white;
+            border-radius: 50%;
+            width: 22px;
+            height: 22px;
+            font-size: 12px;
+            font-weight: bold;
+            text-align: center;
+            line-height: 22px;
+            margin-right: 8px;
+        }
+        .grammar .question-number { background: #EF4135; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📝 Practice Test</h1>
+        <p class="subtitle">French Year 7 — Test your knowledge before the real exam!</p>
+
+        <!-- SECTION A: Days of the Week -->
+        <div class="section" id="sectionA">
+            <h2>A. Vocabulary — Les jours de la semaine</h2>
+            <p class="section-desc">Choose the correct French translation for each day.</p>
+
+            <div class="question" data-q="A1" data-answer="lundi">
+                <div class="question-text"><span class="question-number">1</span>Monday</div>
+                <div class="options">
+                    <div class="option" data-val="mardi">mardi</div>
+                    <div class="option" data-val="lundi">lundi</div>
+                    <div class="option" data-val="vendredi">vendredi</div>
+                    <div class="option" data-val="mercredi">mercredi</div>
+                </div>
+                <div class="feedback"></div>
+            </div>
+
+            <div class="question" data-q="A2" data-answer="jeudi">
+                <div class="question-text"><span class="question-number">2</span>Thursday</div>
+                <div class="options">
+                    <div class="option" data-val="mardi">mardi</div>
+                    <div class="option" data-val="samedi">samedi</div>
+                    <div class="option" data-val="jeudi">jeudi</div>
+                    <div class="option" data-val="dimanche">dimanche</div>
+                </div>
+                <div class="feedback"></div>
+            </div>
+
+            <div class="question" data-q="A3" data-answer="dimanche">
+                <div class="question-text"><span class="question-number">3</span>Sunday</div>
+                <div class="options">
+                    <div class="option" data-val="vendredi">vendredi</div>
+                    <div class="option" data-val="samedi">samedi</div>
+                    <div class="option" data-val="mercredi">mercredi</div>
+                    <div class="option" data-val="dimanche">dimanche</div>
+                </div>
+                <div class="feedback"></div>
+            </div>
+
+            <div class="question" data-q="A4" data-answer="Wednesday">
+                <div class="question-text"><span class="question-number">4</span>What does <strong>mercredi</strong> mean in English?</div>
+                <div class="options">
+                    <div class="option" data-val="Monday">Monday</div>
+                    <div class="option" data-val="Friday">Friday</div>
+                    <div class="option" data-val="Wednesday">Wednesday</div>
+                    <div class="option" data-val="Tuesday">Tuesday</div>
+                </div>
+                <div class="feedback"></div>
+            </div>
+
+            <div class="question" data-q="A5" data-answer="Saturday">
+                <div class="question-text"><span class="question-number">5</span>What does <strong>samedi</strong> mean in English?</div>
+                <div class="options">
+                    <div class="option" data-val="Sunday">Sunday</div>
+                    <div class="option" data-val="Saturday">Saturday</div>
+                    <div class="option" data-val="Thursday">Thursday</div>
+                    <div class="option" data-val="Friday">Friday</div>
+                </div>
+                <div class="feedback"></div>
+            </div>
+        </div>
+
+        <!-- SECTION B: Hobbies & Preferences -->
+        <div class="section" id="sectionB">
+            <h2>B. Vocabulary — Les goûts et les loisirs</h2>
+            <p class="section-desc">Choose the correct translation or match the hobby.</p>
+
+            <div class="question" data-q="B1" data-answer="les jeux vidéo">
+                <div class="question-text"><span class="question-number">6</span>video games</div>
+                <div class="options">
+                    <div class="option" data-val="la musique">la musique</div>
+                    <div class="option" data-val="les jeux vidéo">les jeux vidéo</div>
+                    <div class="option" data-val="la danse">la danse</div>
+                    <div class="option" data-val="le sport">le sport</div>
+                </div>
+                <div class="feedback"></div>
+            </div>
+
+            <div class="question" data-q="B2" data-answer="écouter la musique">
+                <div class="question-text"><span class="question-number">7</span>to listen to music</div>
+                <div class="options">
+                    <div class="option" data-val="regarder la musique">regarder la musique</div>
+                    <div class="option" data-val="jouer la musique">jouer la musique</div>
+                    <div class="option" data-val="écouter la musique">écouter la musique</div>
+                    <div class="option" data-val="parler la musique">parler la musique</div>
+                </div>
+                <div class="feedback"></div>
+            </div>
+
+            <div class="question" data-q="B3" data-answer="I hate">
+                <div class="question-text"><span class="question-number">8</span>What does <strong>Je déteste</strong> mean?</div>
+                <div class="options">
+                    <div class="option" data-val="I like">I like</div>
+                    <div class="option" data-val="I love">I love</div>
+                    <div class="option" data-val="I hate">I hate</div>
+                    <div class="option" data-val="I don't like">I don't like</div>
+                </div>
+                <div class="feedback"></div>
+            </div>
+
+            <div class="question" data-q="B4" data-answer="J'adore">
+                <div class="question-text"><span class="question-number">9</span>How do you say "I love / I adore" in French?</div>
+                <div class="options">
+                    <div class="option" data-val="J'aime">J'aime</div>
+                    <div class="option" data-val="J'adore">J'adore</div>
+                    <div class="option" data-val="Je déteste">Je déteste</div>
+                    <div class="option" data-val="Je n'aime pas">Je n'aime pas</div>
+                </div>
+                <div class="feedback"></div>
+            </div>
+
+            <div class="question" data-q="B5" data-answer="les bonbons">
+                <div class="question-text"><span class="question-number">10</span>sweets / candy</div>
+                <div class="options">
+                    <div class="option" data-val="les livres">les livres</div>
+                    <div class="option" data-val="les promenades">les promenades</div>
+                    <div class="option" data-val="les bonbons">les bonbons</div>
+                    <div class="option" data-val="les copains">les copains</div>
+                </div>
+                <div class="feedback"></div>
+            </div>
+
+            <div class="question" data-q="B6" data-answer="to watch TV">
+                <div class="question-text"><span class="question-number">11</span>What does <strong>regarder la télévision</strong> mean?</div>
+                <div class="options">
+                    <div class="option" data-val="to listen to the radio">to listen to the radio</div>
+                    <div class="option" data-val="to watch TV">to watch TV</div>
+                    <div class="option" data-val="to play video games">to play video games</div>
+                    <div class="option" data-val="to go to the cinema">to go to the cinema</div>
+                </div>
+                <div class="feedback"></div>
+            </div>
+        </div>
+
+        <!-- SECTION C: Definite Articles -->
+        <div class="section grammar" id="sectionC">
+            <h2>C. Grammar — Les articles définis (le / la / l' / les)</h2>
+            <p class="section-desc">Choose the correct definite article for each noun.</p>
+
+            <div class="question" data-q="C1" data-answer="le">
+                <div class="question-text"><span class="question-number">12</span>___ sport (masculine)</div>
+                <div class="options">
+                    <div class="option" data-val="le">le</div>
+                    <div class="option" data-val="la">la</div>
+                    <div class="option" data-val="l'">l'</div>
+                    <div class="option" data-val="les">les</div>
+                </div>
+                <div class="feedback"></div>
+            </div>
+
+            <div class="question" data-q="C2" data-answer="la">
+                <div class="question-text"><span class="question-number">13</span>___ danse (feminine)</div>
+                <div class="options">
+                    <div class="option" data-val="le">le</div>
+                    <div class="option" data-val="la">la</div>
+                    <div class="option" data-val="l'">l'</div>
+                    <div class="option" data-val="les">les</div>
+                </div>
+                <div class="feedback"></div>
+            </div>
+
+            <div class="question" data-q="C3" data-answer="l'">
+                <div class="question-text"><span class="question-number">14</span>___ école (starts with a vowel)</div>
+                <div class="options">
+                    <div class="option" data-val="le">le</div>
+                    <div class="option" data-val="la">la</div>
+                    <div class="option" data-val="l'">l'</div>
+                    <div class="option" data-val="les">les</div>
+                </div>
+                <div class="feedback"></div>
+            </div>
+
+            <div class="question" data-q="C4" data-answer="les">
+                <div class="question-text"><span class="question-number">15</span>___ livres (plural)</div>
+                <div class="options">
+                    <div class="option" data-val="le">le</div>
+                    <div class="option" data-val="la">la</div>
+                    <div class="option" data-val="l'">l'</div>
+                    <div class="option" data-val="les">les</div>
+                </div>
+                <div class="feedback"></div>
+            </div>
+
+            <div class="question" data-q="C5" data-answer="l'">
+                <div class="question-text"><span class="question-number">16</span>___ ordinateur (starts with a vowel)</div>
+                <div class="options">
+                    <div class="option" data-val="le">le</div>
+                    <div class="option" data-val="la">la</div>
+                    <div class="option" data-val="l'">l'</div>
+                    <div class="option" data-val="les">les</div>
+                </div>
+                <div class="feedback"></div>
+            </div>
+
+            <div class="question" data-q="C6" data-answer="les">
+                <div class="question-text"><span class="question-number">17</span>___ copains (plural)</div>
+                <div class="options">
+                    <div class="option" data-val="le">le</div>
+                    <div class="option" data-val="la">la</div>
+                    <div class="option" data-val="l'">l'</div>
+                    <div class="option" data-val="les">les</div>
+                </div>
+                <div class="feedback"></div>
+            </div>
+        </div>
+
+        <!-- SECTION D: -er Verb Conjugation -->
+        <div class="section grammar" id="sectionD">
+            <h2>D. Grammar — Les verbes en -er</h2>
+            <p class="section-desc">Choose the correct conjugated form of the verb.</p>
+
+            <div class="question" data-q="D1" data-answer="j'aime">
+                <div class="question-text"><span class="question-number">18</span>aimer — <strong>je</strong></div>
+                <div class="options">
+                    <div class="option" data-val="j'aime">j'aime</div>
+                    <div class="option" data-val="j'aimez">j'aimez</div>
+                    <div class="option" data-val="j'aimons">j'aimons</div>
+                    <div class="option" data-val="j'aiment">j'aiment</div>
+                </div>
+                <div class="feedback"></div>
+            </div>
+
+            <div class="question" data-q="D2" data-answer="nous jouons">
+                <div class="question-text"><span class="question-number">19</span>jouer — <strong>nous</strong></div>
+                <div class="options">
+                    <div class="option" data-val="nous jouez">nous jouez</div>
+                    <div class="option" data-val="nous jouons">nous jouons</div>
+                    <div class="option" data-val="nous joue">nous joue</div>
+                    <div class="option" data-val="nous jouent">nous jouent</div>
+                </div>
+                <div class="feedback"></div>
+            </div>
+
+            <div class="question" data-q="D3" data-answer="ils écoutent">
+                <div class="question-text"><span class="question-number">20</span>écouter — <strong>ils</strong></div>
+                <div class="options">
+                    <div class="option" data-val="ils écoutons">ils écoutons</div>
+                    <div class="option" data-val="ils écoutez">ils écoutez</div>
+                    <div class="option" data-val="ils écoute">ils écoute</div>
+                    <div class="option" data-val="ils écoutent">ils écoutent</div>
+                </div>
+                <div class="feedback"></div>
+            </div>
+
+            <div class="question" data-q="D4" data-answer="tu regardes">
+                <div class="question-text"><span class="question-number">21</span>regarder — <strong>tu</strong></div>
+                <div class="options">
+                    <div class="option" data-val="tu regardes">tu regardes</div>
+                    <div class="option" data-val="tu regarde">tu regarde</div>
+                    <div class="option" data-val="tu regardez">tu regardez</div>
+                    <div class="option" data-val="tu regardons">tu regardons</div>
+                </div>
+                <div class="feedback"></div>
+            </div>
+
+            <div class="question" data-q="D5" data-answer="vous aimez">
+                <div class="question-text"><span class="question-number">22</span>aimer — <strong>vous</strong></div>
+                <div class="options">
+                    <div class="option" data-val="vous aimons">vous aimons</div>
+                    <div class="option" data-val="vous aiment">vous aiment</div>
+                    <div class="option" data-val="vous aimez">vous aimez</div>
+                    <div class="option" data-val="vous aimes">vous aimes</div>
+                </div>
+                <div class="feedback"></div>
+            </div>
+
+            <div class="question" data-q="D6" data-answer="-e, -es, -e, -ons, -ez, -ent">
+                <div class="question-text"><span class="question-number">23</span>What are the 6 endings for -er verbs? (je, tu, il, nous, vous, ils)</div>
+                <div class="options">
+                    <div class="option" data-val="-e, -es, -e, -ons, -ez, -ent">-e, -es, -e, -ons, -ez, -ent</div>
+                    <div class="option" data-val="-s, -s, -t, -ons, -ez, -ont">-s, -s, -t, -ons, -ez, -ont</div>
+                    <div class="option" data-val="-e, -es, -et, -ons, -ez, -ent">-e, -es, -et, -ons, -ez, -ent</div>
+                    <div class="option" data-val="-e, -es, -e, -ons, -ent, -ez">-e, -es, -e, -ons, -ent, -ez</div>
+                </div>
+                <div class="feedback"></div>
+            </div>
+        </div>
+
+        <!-- SECTION E: Negative Sentences -->
+        <div class="section grammar" id="sectionE">
+            <h2>E. Grammar — La phrase négative (ne...pas)</h2>
+            <p class="section-desc">Choose the correctly formed negative sentence.</p>
+
+            <div class="question" data-q="E1" data-answer="Je ne parle pas français.">
+                <div class="question-text"><span class="question-number">24</span>I do not speak French.</div>
+                <div class="options">
+                    <div class="option" data-val="Je parle ne pas français.">Je parle ne pas français.</div>
+                    <div class="option" data-val="Je ne parle pas français.">Je ne parle pas français.</div>
+                    <div class="option" data-val="Je ne pas parle français.">Je ne pas parle français.</div>
+                    <div class="option" data-val="Pas je parle français.">Pas je parle français.</div>
+                </div>
+                <div class="feedback"></div>
+            </div>
+
+            <div class="question" data-q="E2" data-answer="Elle n'aime pas les livres.">
+                <div class="question-text"><span class="question-number">25</span>She does not like books. (Remember: ne → n' before vowel)</div>
+                <div class="options">
+                    <div class="option" data-val="Elle ne aime pas les livres.">Elle ne aime pas les livres.</div>
+                    <div class="option" data-val="Elle n'aime pas les livres.">Elle n'aime pas les livres.</div>
+                    <div class="option" data-val="Elle aime pas les livres.">Elle aime pas les livres.</div>
+                    <div class="option" data-val="Elle n'aime les livres pas.">Elle n'aime les livres pas.</div>
+                </div>
+                <div class="feedback"></div>
+            </div>
+
+            <div class="question" data-q="E3" data-answer="n'">
+                <div class="question-text"><span class="question-number">26</span><strong>ne</strong> becomes ___ before a vowel.</div>
+                <div class="options">
+                    <div class="option" data-val="n'">n'</div>
+                    <div class="option" data-val="ne'">ne'</div>
+                    <div class="option" data-val="ni">ni</div>
+                    <div class="option" data-val="na">na</div>
+                </div>
+                <div class="feedback"></div>
+            </div>
+
+            <div class="question" data-q="E4" data-answer="Il ne joue pas aux jeux vidéo.">
+                <div class="question-text"><span class="question-number">27</span>He does not play video games.</div>
+                <div class="options">
+                    <div class="option" data-val="Il joue ne pas aux jeux vidéo.">Il joue ne pas aux jeux vidéo.</div>
+                    <div class="option" data-val="Il n'joue pas aux jeux vidéo.">Il n'joue pas aux jeux vidéo.</div>
+                    <div class="option" data-val="Il ne joue pas aux jeux vidéo.">Il ne joue pas aux jeux vidéo.</div>
+                    <div class="option" data-val="Il ne joue aux jeux vidéo pas.">Il ne joue aux jeux vidéo pas.</div>
+                </div>
+                <div class="feedback"></div>
+            </div>
+        </div>
+
+        <!-- SECTION F: Est-ce que -->
+        <div class="section grammar" id="sectionF">
+            <h2>F. Grammar — Les questions avec Est-ce que</h2>
+            <p class="section-desc">Choose the correctly formed question.</p>
+
+            <div class="question" data-q="F1" data-answer="Est-ce que tu aimes les jeux vidéo ?">
+                <div class="question-text"><span class="question-number">28</span>Do you like video games? (tu)</div>
+                <div class="options">
+                    <div class="option" data-val="Est-ce que tu aimes les jeux vidéo ?">Est-ce que tu aimes les jeux vidéo ?</div>
+                    <div class="option" data-val="Est-ce tu aimes les jeux vidéo ?">Est-ce tu aimes les jeux vidéo ?</div>
+                    <div class="option" data-val="Tu est-ce que aimes les jeux vidéo ?">Tu est-ce que aimes les jeux vidéo ?</div>
+                    <div class="option" data-val="Que tu aimes les jeux vidéo ?">Que tu aimes les jeux vidéo ?</div>
+                </div>
+                <div class="feedback"></div>
+            </div>
+
+            <div class="question" data-q="F2" data-answer="Est-ce qu'elle écoute la musique ?">
+                <div class="question-text"><span class="question-number">29</span>Does she listen to music? (Remember: est-ce que → est-ce qu' before vowel)</div>
+                <div class="options">
+                    <div class="option" data-val="Est-ce que elle écoute la musique ?">Est-ce que elle écoute la musique ?</div>
+                    <div class="option" data-val="Est-ce qu'elle écoute la musique ?">Est-ce qu'elle écoute la musique ?</div>
+                    <div class="option" data-val="Est-ce qu'elle écoutent la musique ?">Est-ce qu'elle écoutent la musique ?</div>
+                    <div class="option" data-val="Est-ce qu'elle écoutes la musique ?">Est-ce qu'elle écoutes la musique ?</div>
+                </div>
+                <div class="feedback"></div>
+            </div>
+
+            <div class="question" data-q="F3" data-answer="Est-ce que vous aimez le sport ?">
+                <div class="question-text"><span class="question-number">30</span>Do you (formal) like sport?</div>
+                <div class="options">
+                    <div class="option" data-val="Est-ce que vous aimez le sport ?">Est-ce que vous aimez le sport ?</div>
+                    <div class="option" data-val="Est-ce que vous aimes le sport ?">Est-ce que vous aimes le sport ?</div>
+                    <div class="option" data-val="Est-ce que vous aimez du sport ?">Est-ce que vous aimez du sport ?</div>
+                    <div class="option" data-val="Est-ce vous aimez le sport ?">Est-ce vous aimez le sport ?</div>
+                </div>
+                <div class="feedback"></div>
+            </div>
+
+            <div class="question" data-q="F4" data-answer="Est-ce qu'">
+                <div class="question-text"><span class="question-number">31</span><strong>Est-ce que</strong> becomes ___ before a vowel.</div>
+                <div class="options">
+                    <div class="option" data-val="Est-ce qu'">Est-ce qu'</div>
+                    <div class="option" data-val="Est-ce q'">Est-ce q'</div>
+                    <div class="option" data-val="Est-qu'">Est-qu'</div>
+                    <div class="option" data-val="Est-ce que'">Est-ce que'</div>
+                </div>
+                <div class="feedback"></div>
+            </div>
+        </div>
+
+        <!-- SECTION G: Pourquoi / Parce que -->
+        <div class="section grammar" id="sectionG">
+            <h2>G. Grammar — Pourquoi / Parce que</h2>
+            <p class="section-desc">Choose the correct option.</p>
+
+            <div class="question" data-q="G1" data-answer="Pourquoi">
+                <div class="question-text"><span class="question-number">32</span>How do you say "Why?" in French?</div>
+                <div class="options">
+                    <div class="option" data-val="Parce que">Parce que</div>
+                    <div class="option" data-val="Pourquoi">Pourquoi</div>
+                    <div class="option" data-val="Quand">Quand</div>
+                    <div class="option" data-val="Comment">Comment</div>
+                </div>
+                <div class="feedback"></div>
+            </div>
+
+            <div class="question" data-q="G2" data-answer="Parce qu'il y a cours de français.">
+                <div class="question-text"><span class="question-number">33</span>Pourquoi tu aimes le lundi ? → <em>Because there is French class.</em></div>
+                <div class="options">
+                    <div class="option" data-val="Parce que il y a cours de français.">Parce que il y a cours de français.</div>
+                    <div class="option" data-val="Parce qu'il y a cours de français.">Parce qu'il y a cours de français.</div>
+                    <div class="option" data-val="Pourquoi il y a cours de français.">Pourquoi il y a cours de français.</div>
+                    <div class="option" data-val="Parce qu'il y cours de français.">Parce qu'il y cours de français.</div>
+                </div>
+                <div class="feedback"></div>
+            </div>
+
+            <div class="question" data-q="G3" data-answer="Parce qu'">
+                <div class="question-text"><span class="question-number">34</span><strong>Parce que</strong> becomes ___ before a vowel.</div>
+                <div class="options">
+                    <div class="option" data-val="Parce qu'">Parce qu'</div>
+                    <div class="option" data-val="Parce q'">Parce q'</div>
+                    <div class="option" data-val="Parce'">Parce'</div>
+                    <div class="option" data-val="Parce que'">Parce que'</div>
+                </div>
+                <div class="feedback"></div>
+            </div>
+        </div>
+
+        <button class="submit-btn" onclick="submitTest()">Submit Test ✓</button>
+
+        <div class="results" id="results">
+            <div class="score-circle" id="scoreCircle"></div>
+            <div class="score-text" id="scoreText"></div>
+            <div class="score-message" id="scoreMessage"></div>
+            <button class="reset-btn" onclick="resetTest()">🔄 Try Again</button>
+            <a href="flashcards.html" style="display:inline-block;padding:12px 24px;background:#0055A4;color:white;text-decoration:none;border-radius:25px;font-weight:bold;margin:5px;">📚 Review Flashcards</a>
+        </div>
+
+        <div class="back-link">
+            <a href="../index.html">← Back to Home</a>
+            <a href="flashcards.html">🃏 Flashcards</a>
+        </div>
+    </div>
+
+    <script>
+        // Handle multiple choice options
+        document.querySelectorAll('.question').forEach(function(q) {
+            q.querySelectorAll('.option').forEach(function(opt) {
+                opt.addEventListener('click', function() {
+                    if (q.classList.contains('answered')) return;
+                    q.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
+                    this.classList.add('selected');
+                    q.dataset.selected = this.dataset.val;
+                });
+            });
+        });
+
+        function submitTest() {
+            let correct = 0;
+            let total = 0;
+
+            document.querySelectorAll('.question').forEach(function(q) {
+                const answer = q.dataset.answer;
+                const selected = q.dataset.selected;
+                const feedback = q.querySelector('.feedback');
+                total++;
+
+                q.classList.add('answered');
+                q.querySelectorAll('.option').forEach(function(opt) {
+                    if (opt.dataset.val === answer) {
+                        opt.classList.add('correct');
+                    }
+                    if (opt.classList.contains('selected') && opt.dataset.val !== answer) {
+                        opt.classList.add('wrong');
+                    }
+                });
+
+                if (selected === answer) {
+                    correct++;
+                    feedback.textContent = '✓ Correct!';
+                    feedback.className = 'feedback correct';
+                } else if (selected) {
+                    feedback.textContent = '✗ The answer is: ' + answer;
+                    feedback.className = 'feedback wrong';
+                } else {
+                    feedback.textContent = '✗ Not answered. The answer is: ' + answer;
+                    feedback.className = 'feedback wrong';
+                }
+            });
+
+            const pct = Math.round((correct / total) * 100);
+            const circle = document.getElementById('scoreCircle');
+            const text = document.getElementById('scoreText');
+            const msg = document.getElementById('scoreMessage');
+
+            circle.textContent = pct + '%';
+            text.textContent = correct + ' / ' + total + ' correct';
+
+            let bg, message;
+            if (pct >= 90) {
+                bg = '#27ae60'; message = '🌟 Excellent! You are ready for the test!';
+            } else if (pct >= 75) {
+                bg = '#2ecc71'; message = '👍 Well done! A little more review and you\'ll be perfect.';
+            } else if (pct >= 60) {
+                bg = '#f39c12'; message = '📚 Good effort! Review the flashcards for the areas you missed.';
+            } else {
+                bg = '#e74c3c'; message = '💪 Keep studying! Use the flashcards to review each topic.';
+            }
+
+            circle.style.background = bg;
+            msg.textContent = message;
+
+            const results = document.getElementById('results');
+            results.classList.add('show');
+            results.style.background = bg + '22';
+            results.style.border = '2px solid ' + bg;
+            results.scrollIntoView({ behavior: 'smooth' });
+
+            document.querySelector('.submit-btn').style.display = 'none';
+        }
+
+        function resetTest() {
+            document.querySelectorAll('.question').forEach(function(q) {
+                q.classList.remove('answered');
+                delete q.dataset.selected;
+                q.querySelectorAll('.option').forEach(function(opt) {
+                    opt.classList.remove('selected', 'correct', 'wrong');
+                });
+                const feedback = q.querySelector('.feedback');
+                if (feedback) { feedback.textContent = ''; feedback.className = 'feedback'; }
+            });
+
+            document.getElementById('results').classList.remove('show');
+            document.querySelector('.submit-btn').style.display = 'block';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
